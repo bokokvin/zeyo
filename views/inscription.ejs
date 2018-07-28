@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Créez votre compte</title>
+        
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <!------ Include the above in your HEAD tag ---------->
+    </head>
+
+    <body>
+
+
+
+
+<form class="form-horizontal" action='/register' method="POST">
+  <fieldset>
+    <div id="legend">
+      <legend class="">INSCRIPTION</legend>
+    </div>
+    <div class="control-group">
+      <!-- Nom -->
+      <label class="control-label"  for="nom">Nom</label>
+      <div class="controls">
+        <input type="text" id="nom" name="nom" placeholder="" class="input-xlarge">
+        <p class="help-block">Please provide your FisrtName</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Prenom -->
+      <label class="control-label" for="prenom">Prenom</label>
+      <div class="controls">
+        <input type="text" id="prenom" name="prenom" placeholder="" class="input-xlarge">
+        <p class="help-block">Please provide your LastName</p>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <!-- Email -->
+      <label class="control-label" for="email">E-mail</label>
+      <div class="controls">
+        <input type="email" id="email" name="email" placeholder="" class="input-xlarge">
+        <p class="help-block">Please provide your E-mail</p>
+      </div>
+    </div>
+
+    <div class="control-group">
+        <!-- Age -->
+        <label class="control-label" for="age">Age</label>
+        <div class="controls">
+          <input type="text" id="age" name="age" placeholder="" class="input-xlarge">
+          <p class="help-block">Please provide your age</p>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <!-- Numero -->
+        <label class="control-label" for="numero">Numero de telephone</label>
+        <div class="controls">
+          <input type="text" id="numero" name="numero" placeholder="" class="input-xlarge">
+          <p class="help-block">Please provide your phone number</p>
+        </div>
+      </div>
+
+
+    <div class="control-group">
+        <!-- Password-->
+        <label class="control-label" for="password">Password</label>
+        <div class="controls">
+          <input type="password" id="mdp" name="mdp" placeholder="" class="input-xlarge">
+          <p class="help-block">Password should be at least 4 characters</p>
+        </div>
+      </div>
+ 
+
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button type="submit" class="btn btn-success">Inscrivez-vous</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+</body>
+</html>

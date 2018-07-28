@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Rechargez votre compte</title>
+        
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <!------ Include the above in your HEAD tag ---------->
+    </head>
+
+    <body>
+
+
+
+
+<form class="form-horizontal" action='/cartes' method="POST">
+  <fieldset>
+    <div id="legend">
+      <legend class="">RECHARGE</legend>
+    </div>
+
+
+    <div class="control-group">
+      <!-- Email -->
+      <label class="control-label" for="email">Code </label>
+      <div class="controls">
+        <input type="text" id="code" name="code" placeholder="" class="input-xlarge">
+        <p class="help-block">Entrez le code caché de votre recharge</p>
+      </div>
+    </div>
+
+
+      <div class="control-group">
+        <!-- Erreur -->
+        <% if (error) { %>
+            <p><%= error %></p>
+          <% } %>
+        
+        
+      </div>
+ 
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button type="submit" class="btn btn-success">Envoyer</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Envoyez de l'argent</title>
+        
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <!------ Include the above in your HEAD tag ---------->
+    </head>
+
+    <body>
+
+
+
+
+<form class="form-horizontal" action='/send' method="POST">
+  <fieldset>
+    <div id="legend">
+      <legend class="">TRANSACTION</legend>
+    </div>
+
+
+    <div class="control-group">
+      <!-- Nom destinataire -->
+      <label class="control-label" for="email">Nom</label>
+      <div class="controls">
+        <input type="text" id="nom" name="nom" placeholder="" class="input-xlarge">
+        <p class="help-block">Entrez le nom de votre destinaire</p>
+      </div>
+    </div>
+
+
+    <div class="control-group">
+        <!-- Montant-->
+        <label class="control-label" for="password">Montant</label>
+        <div class="controls">
+          <input type="text" id="montant" name="montant" placeholder="" class="input-xlarge">
+          <p class="help-block">Entrez le montant de la transaction </p>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <!-- Erreur -->
+        <% if (error) { %>
+            <p><%= error %></p>
+          <% } %>
+        
+        
+      </div>
+ 
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button type="submit" class="btn btn-success">Envoyer</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+</body>
+</html>

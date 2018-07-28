@@ -1,0 +1,26 @@
+{
+  "name": "paiement",
+  "version": "1.0.0",
+  "description": "Systeme de Paiement",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Kevin BOKO",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
+    "client-sessions": "^0.8.0",
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "express-validator": "^5.1.2",
+    "jsonwebtoken": "^8.2.1",
+    "mongodb": "^3.0.6",
+    "mongoose": "^5.0.14"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}
