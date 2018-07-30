@@ -38,11 +38,19 @@ module.exports = function(app) {
     .get(users.requireLogin, comptes.sending_form)
     .post(comptes.send);
 
-    app.route('/transaction')
+    app.route('/transaction/form/:compteId')
     .get(users.requireLogin, comptes.transaction_form);
 
     app.route('/compte/create')
     .post(users.requireLogin, comptes.create);
+
+    app.route('/comptes')
+    .get(users.requireLogin, comptes.liste);
+
+    app.route('/transaction')
+    .get(users.requireLogin, comptes.transaction);
+
+    
 
 
 

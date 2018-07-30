@@ -15,6 +15,29 @@ exports.transaction_form = function(req, res) {
     res.render('transaction_form.ejs', { error: ""});  
   };
 
+  exports.liste = function(req, res) {
+    
+    User
+    .findOne({ _id: req.session.user._id})
+    .populate('comptes')
+    .exec(function (err, User) {
+        res.render('compte.ejs',{users: User});
+    })
+
+  };
+
+
+  exports.transaction = function(req, res) {
+    
+    User
+    .findOne({ _id: req.session.user._id})
+    .populate('comptes')
+    .exec(function (err, User) {
+        res.render('transaction.ejs',{users: User});
+    })
+    
+  };
+
 
 exports.create = function(req, res) {
 
@@ -45,19 +68,18 @@ exports.create = function(req, res) {
 
 exports.send = function(req, res){
 
-    User
-    .findOne({ _id: req.session.user._id})
-    .populate('comptes')
-    .exec(function (err, Sender) {
+    Compte
+    .findOne({_id: '5adad176db15f8b844a3e471' })
+    .exec(function (err, sender_compte) {
         if (err) return handleError(err);
         
-        if (req.body.montant > Sender.comptes[0].solde)
+        if (req.body.montant > sender_compte.solde)
             res.json("Transaction Refusée. Solde insuffisant");
 
         else
         {
-            var new_solde = Sender.comptes[0].solde - parseInt(req.body.montant);
-            Sender.comptes[0].update({ solde: new_solde}, {new: true}, function (err, updatedCompte) {
+            var new_solde = sender_compte.solde - parseInt(req.body.montant);
+            sender_compte.update({ solde: new_solde}, {new: true}, function (err, updatedCompte) {
                 if (err) return handleError(err);
 
                 }); 
@@ -79,8 +101,17 @@ exports.send = function(req, res){
 
                 var donnees_tr = { dest_nom: req.body.nom, montant: req.body.montant, date: Date.now() };    
             
-                Sender.transfert.push(donnees_tr);
-                Sender.save();
+
+                User
+                    .findOne({_id: req.session.user._id})
+                    .populate('comptes')
+                    .exec(function (err, Sender) {
+                        if (err) return handleError(err);
+
+                        Sender.transfert.push(donnees_tr);
+                        Sender.save();
+                    })
+               
                 
                 res.json("Transaction effectuée");
                 });
