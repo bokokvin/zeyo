@@ -1,0 +1,26 @@
+.list-group-item.active {
+    z-index: 2;
+    color: #000;
+    background-color: #f8f9fa;
+    border-color: #000;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.list-group-item-action {
+    margin: auto;
+    margin-bottom: 20px;
+    width: 95%;
+    color: #495057;
+    text-align: inherit;
+}
