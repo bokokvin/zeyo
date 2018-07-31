@@ -1,5 +1,6 @@
 var express = require('express'),
   app = express(),
+  engine = require('ejs-blocks'),
   port = process.env.PORT || 3000;
   mongoose = require('mongoose'),
   
@@ -16,6 +17,9 @@ var express = require('express'),
     mongoose.connect('mongodb://localhost/PaiementDB'); 
 
 
+    app.engine('ejs', require('express-ejs-extend'));
+    //app.engine('ejs', engine);
+    //app.set('view engine', 'ejs');
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(express.static(__dirname + '/public'));

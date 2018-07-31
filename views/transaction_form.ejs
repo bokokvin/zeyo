@@ -1,64 +1,87 @@
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title>Envoyez de l'argent</title>
-        
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <!------ Include the above in your HEAD tag ---------->
-    </head>
+<head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
 
-    <body>
+<body>
+    <%- include('menu', {user: user}); %>
 
+    <br><br>
 
 
-
-<form class="form-horizontal" action='/send' method="POST">
-  <fieldset>
-    <div id="legend">
-      <legend class="">TRANSACTION</legend>
-    </div>
-
-
-    <div class="control-group">
-      <!-- Nom destinataire -->
-      <label class="control-label" for="email">Nom</label>
-      <div class="controls">
-        <input type="text" id="nom" name="nom" placeholder="" class="input-xlarge">
-        <p class="help-block">Entrez le nom de votre destinaire</p>
-      </div>
-    </div>
-
-
-    <div class="control-group">
-        <!-- Montant-->
-        <label class="control-label" for="password">Montant</label>
-        <div class="controls">
-          <input type="text" id="montant" name="montant" placeholder="" class="input-xlarge">
-          <p class="help-block">Entrez le montant de la transaction </p>
+    <form class="form-horizontal" action='/send' method="POST">
+      <fieldset>
+        <div id="legend">
+          <legend class="">TRANSACTION</legend>
         </div>
-      </div>
+    
+        
+        <div class="form-group row">
+          <!-- Nom destinataire -->
+          <label class="col-sm-2 col-form-label" for="nom">Nom</label>
+          <div class="col-sm-10">
+            <input type="text" id="nom" name="nom" placeholder="" class="form-control">
+            <p class="help-block">Entrez le nom de votre destinaire</p>
+          </div>
+        </div>
+    
+    
+        <div class="form-group row">
+            <!-- Montant-->
+            <label class="col-sm-2 col-form-label" for="password">Montant</label>
+            <div class="col-sm-10">
+              <input type="text" id="montant" name="montant" placeholder="" class="form-control">
+              <p class="help-block">Entrez le montant de la transaction </p>
+            </div>
+          </div>
+    
+        
+          <div class="form-group row">
+              <!-- Compte-->
+              <div class="col-sm-10">
+                <input type="hidden" id="compte" name="compte" value="<%= req.params.compteId %>" placeholder="" class="form-control">
+              </div>
+            </div>
+    
+            <div class="form-group row">
+                <!-- Erreur -->
+                <% if (error) { %>
+                    <p><%= error %></p>
+                  <% } %>
+                
+                
+              </div>
+    
+     
+     
+        <div class="form-group row">
+          <!-- Button -->
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
 
-      <div class="control-group">
-        <!-- Erreur -->
-        <% if (error) { %>
-            <p><%= error %></p>
-          <% } %>
-        
-        
-      </div>
- 
- 
-    <div class="control-group">
-      <!-- Button -->
-      <div class="controls">
-        <button type="submit" class="btn btn-success">Envoyer</button>
-      </div>
-    </div>
-  </fieldset>
-</form>
+    <br><br>
+
+
+
+    <%- include('footer', {user: user}); %>
+
+
+
+
+
+
+
+    
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 </html>

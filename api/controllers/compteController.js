@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
 
 
 exports.transaction_form = function(req, res) {
-    res.render('transaction_form.ejs', { error: ""});  
+    res.render('transaction_form.ejs', { req : req, error: ""});  
   };
 
   exports.liste = function(req, res) {
@@ -69,12 +69,12 @@ exports.create = function(req, res) {
 exports.send = function(req, res){
 
     Compte
-    .findOne({_id: '5adad176db15f8b844a3e471' })
+    .findOne({_id: req.body.compte })
     .exec(function (err, sender_compte) {
         if (err) return handleError(err);
         
         if (req.body.montant > sender_compte.solde)
-            res.json("Transaction Refusée. Solde insuffisant");
+            return res.render('transaction_form.ejs', { req: req, error: 'Solde insuffisant'});
 
         else
         {
@@ -113,7 +113,7 @@ exports.send = function(req, res){
                     })
                
                 
-                res.json("Transaction effectuée");
+                    res.redirect('/transaction', );
                 });
 
             
