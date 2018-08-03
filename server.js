@@ -8,6 +8,7 @@ var express = require('express'),
   Compte  = require('./api/models/compteModel'),
   Rib     = require('./api/models/ribModel'),
   Carte   = require('./api/models/carteModel'),
+  Transaction = require('./api/models/transactionModel'),
 
   bodyParser = require('body-parser'),
   session = require('client-sessions');
