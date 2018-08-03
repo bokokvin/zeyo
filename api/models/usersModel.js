@@ -13,22 +13,9 @@ var usersSchema = new Schema({
     mdp: String,
 
     comptes : [{ type: Schema.Types.ObjectId, ref: 'Compte'}],
-    //transfert:  [{ type: Schema.Types.ObjectId, ref: 'Users'}]
-    transfert: [
-        {
-          dest_nom: {
-            type: String
-          },
-          montant: {
-              type: Number
-            },
+    ribs : [{ type: Schema.Types.ObjectId, ref: 'Rib'}],
 
-          date: {
-              type: Date
-          }
-          
-        }
-      ]
+    transactions:  [{ type: Schema.Types.ObjectId, ref: 'Transaction'}], 
 
 });
 
