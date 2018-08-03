@@ -5,28 +5,28 @@ module.exports = function(app) {
         comptes = require('../controllers/compteController'),
         cartes  = require('../controllers/carteController');
 
+
+
     // users Routes
     app.route('/register')
     .get(users.register_form)
     .post(users.create_a_user);
 
     app.route('/home')
-    .get(users.requireLogin, users.home);
+    .get(users.requireLogin, users.home); // Affiche Homepage
 
     app.route('/login')
-    .get(users.login_form)
-    .post(users.log_a_user);
+    .get(users.login_form) // Affiche formulaire de connexion
+    .post(users.log_a_user); // Connecte un utilisateur 
 
     app.route('/logout')
-    .get(users.logout);
-
-
+    .get(users.logout); // Déconnecte un utilisateur
 
 
     app.route('/users/:userId')
-    .get(users.requireLogin, users.get_a_user)
-    .put(users.update_a_user)
-    .delete(users.delete_a_user);
+    .get(users.requireLogin, users.get_a_user) // Récupère un utilisateur
+    .put(users.requireLogin, users.update_a_user) // Modifie un utilisateur
+    .delete(users.requireLogin, users.delete_a_user); // Supprime un utilisateur
 
 
 
@@ -34,24 +34,26 @@ module.exports = function(app) {
     
     // comptes routes
 
-    app.route('/send')
-    .get(users.requireLogin, comptes.sending_form)
-    .post(comptes.send);
-
-    app.route('/transaction/form/:compteId')
-    .get(users.requireLogin, comptes.transaction_form);
+    app.route('/comptes')
+    .get(users.requireLogin, comptes.liste); // Affiche liste des comptes
 
     app.route('/compte/create')
-    .post(users.requireLogin, comptes.create);
-
-    app.route('/comptes')
-    .get(users.requireLogin, comptes.liste);
+    .post(users.requireLogin, comptes.create); // Crée un compte 
 
     app.route('/transaction')
-    .get(users.requireLogin, comptes.transaction);
+    .get(users.requireLogin, comptes.transaction); // Affiche page de choix du compte pour la transaction
+
+    app.route('/transaction/form/:compteId')
+    .get(users.requireLogin, comptes.transaction_form); // Affiche formuliare de transaction
+
+    app.route('/send')
+    .post(users.requireLogin, comptes.send); // Effectue la transaction
 
     
 
+    
+
+    
 
 
 
@@ -59,6 +61,6 @@ module.exports = function(app) {
     // cartes routes
 
     app.route('/cartes')
-    .get(users.requireLogin, cartes.get_form)
-    .post(cartes.recharger)
+    .get(users.requireLogin, cartes.get_form) // Affiche formulaire pour recharger son compte
+    .post(cartes.recharger) // Effectue le rechargement du compte
 }
