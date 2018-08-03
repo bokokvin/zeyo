@@ -10,28 +10,22 @@ var mongoose = require('mongoose'),
     config = require('../../config');
     
 
+// Affiche le formulaire d'inscription
 exports.register_form = function(req, res) {
       res.render('inscription.ejs');  
 };
 
+// Affiche le formulaire d'inscription pour un pro
+exports.register_form_pro = function(req, res) {
+  res.render('');  
+};
 
+// Affiche le formulaire de connexion
 exports.login_form = function(req, res) {
   res.render('connexion.ejs', { error: ""});  
 };
 
-exports.logout = function(req, res) {
-  req.session.reset();
-  res.redirect('/login');
-};
-
-exports.requireLogin = function(req, res, next) {
-  if (!req.user) {
-    res.redirect('/login');
-  } else {
-    next();
-  }
-};
-
+// Affiche la page d'accueil en lui passant les données de l'utilisateur courant
 exports.home = function(req, res) { 
 
   User
@@ -40,15 +34,27 @@ exports.home = function(req, res) {
   .exec(function (err, User) {
       res.render('home.ejs',{users: User});
   })
+        
+};
 
+// Supprime les données de session, déconnecte l'utilisateur et le redirige vers la page de connexion
+exports.logout = function(req, res) {
+  req.session.reset();
+  res.redirect('/login');
+};
 
-
-      
-
-  
+// Verifie que l'utilisateur est connecté sinon le redirige vers la page de connexion
+exports.requireLogin = function(req, res, next) {
+  if (!req.user) {
+    res.redirect('/login');
+  } else {
+    next();
+  }
 };
 
 
+
+// Crée un nouvel utilisateur et un nouveau compte qui lui est associé, redirige vers la page de connexion
 exports.create_a_user = function(req, res) {
  var hashedPassword = bcrypt.hashSync(req.body.mdp, 8);
   
@@ -59,7 +65,6 @@ exports.create_a_user = function(req, res) {
     age : req.body.age,
     numero : req.body.numero,
     mdp : hashedPassword,
-    //transfert: '5ad721434b327e38282bd793'
   });
   
   bob.save(function(err, bob) {
@@ -77,30 +82,62 @@ exports.create_a_user = function(req, res) {
 
     });
 
-    
-
     res.redirect('/login');
 });
-
-
-
-/*User
-.findOne({ _id: '5ad722ab884bba16bc9176f7'})
-.populate({path: 'transfert',
-            populate: { path: 'comptes' }
-})  
-.exec(function (err, recepteur) {
-  if (err) return handleError(err);
-  //res.status(200).send(recepteur.transfert.comptes[0].solde.toString());
-  res.status(200).json(recepteur.transfert.comptes[0].devise);
-  
-});*/
-
-
-
 };
 
 
+// Crée un utilisateur pro, un nouveau compte et un nouveau Rib qui lui sont associés, redirige vers la page de connexion
+exports.create_a_high_user = function(req, res) {
+  var hashedPassword = bcrypt.hashSync(req.body.mdp, 8);
+   
+   var bob = new User({
+     nom : req.body.nom,
+     prenom : req.body.prenom,
+     email : req.body.email,
+     age : req.body.age,
+     numero : req.body.numero,
+     mdp : hashedPassword,
+   });
+   
+   bob.save(function(err, bob) {
+     if (err) res.send(err);
+
+     var rib = new Rib ({
+      pays: req.body.pays,
+      iban: req.body.iban,
+      bic: req.body.bic,
+      banque: req.body.banque,
+      user : bob._id
+     });
+
+    rib.save(function (err){
+        if (err) return handleError(err);
+
+        var compte = new Compte({
+          user: bob._id 
+        });
+    
+        compte.save(function (err) {
+          if (err) return handleError(err);
+    
+          bob.comptes.push(compte);
+          bob.ribs.push(rib);
+
+          bob.save(function(err){});
+    
+        });
+    });
+     
+     
+ 
+     res.redirect('/login');
+ });
+ };
+ 
+
+
+//Connecte un utilisateur, crée une session avec ses données et le redirige vers la page d'accueil
 exports.log_a_user = function(req, res) {
   
   User.findOne({ email: req.body.email }, function (err, user) {
@@ -122,11 +159,7 @@ exports.log_a_user = function(req, res) {
 
 
 
-
-
-
-
-
+// Récupère un utilisateur grâce à son Id dans l'url et affiche ses données
 exports.get_a_user = function(req, res) {
   User.findOne({_id: req.params.userId}, function(err, user) {
     if (err)
@@ -135,7 +168,7 @@ exports.get_a_user = function(req, res) {
   });
 };
 
-
+// Met à jour un utilisateur grâce à son Id dans l'url et affiche ses nouvelles données
 exports.update_a_user = function(req, res) {
   User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true}, function(err, user) {
     if (err)
@@ -144,7 +177,7 @@ exports.update_a_user = function(req, res) {
   });
 };
 
-
+// Supprime un utilisateur grâce à son Id dans l'url et affiche un message
 exports.delete_a_user = function(req, res) {
   User.remove({_id: req.params.userId}, function(err, user) {
     if (err)
