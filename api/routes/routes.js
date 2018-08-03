@@ -9,8 +9,12 @@ module.exports = function(app) {
 
     // users Routes
     app.route('/register')
-    .get(users.register_form)
-    .post(users.create_a_user);
+    .get(users.register_form)  // Affiche formulaire d'inscription
+    .post(users.create_a_user); // Crée un utilisateur
+
+    app.route('/register/pro')
+    .get(users.register_form_pro)  // Affiche formulaire d'inscription pour un pro
+    .post(users.create_a_high_user); // Crée un utilisateur pro
 
     app.route('/home')
     .get(users.requireLogin, users.home); // Affiche Homepage
