@@ -17,7 +17,7 @@ module.exports = function(app) {
     .post(users.create_a_high_user); // Crée un utilisateur pro
 
     app.route('/home')
-    .get(users.requireLogin, users.home); // Affiche Homepage
+    .get(users.home); // Affiche Homepage
 
     app.route('/login')
     .get(users.login_form) // Affiche formulaire de connexion
@@ -37,11 +37,14 @@ module.exports = function(app) {
     
     
     // comptes routes
+    app.route('/transaction/all')
+    .get(users.requireLogin, users.transaction_all_by_user); // Affiche toutes les transactions d'un utilisateur
 
     app.route('/comptes')
     .get(users.requireLogin, comptes.liste); // Affiche liste des comptes
 
     app.route('/compte/create')
+    .get(users.requireLogin, comptes.create_form) // Affiche le formulaire de création de compte
     .post(users.requireLogin, comptes.create); // Crée un compte 
 
     app.route('/transaction')
@@ -53,18 +56,23 @@ module.exports = function(app) {
     app.route('/send')
     .post(users.requireLogin, comptes.send); // Effectue la transaction
 
-    
+    app.route('/activite')
+    .get(users.requireLogin, comptes.activite); // Affiche le fil d'activité du compte
 
-    
 
-    
+
+
 
 
 
 
     // cartes routes
 
-    app.route('/cartes')
-    .get(users.requireLogin, cartes.get_form) // Affiche formulaire pour recharger son compte
-    .post(cartes.recharger) // Effectue le rechargement du compte
+    app.route('/carte')
+    .get(users.requireLogin, cartes.cartes)// Affiche page de choix du compte à recharger
+    .post(cartes.recharger); // Effectue le rechargement du compte
+
+    app.route('/carte/form/:compteId')
+    .get(users.requireLogin, cartes.get_form); // Affiche formulaire pour recharger son compte
+    
 }
