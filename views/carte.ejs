@@ -6,7 +6,7 @@
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="/css/animate.css" rel="stylesheet" type="text/css">
         <link href="/css/style.css" rel="stylesheet">
-    </head>
+</head>
 
 <body>
     <%- include('menu', {user: user}); %>
@@ -14,30 +14,27 @@
     <div class="container py-5 mb-5">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="text-center text-blue mb-5"> Vos comptes</h3>
+                    <h5 class="text-center text-blue mb-5"> Sélectionnez un compte</h5>
                     <div class="row">
                             <div class="col-md-6 mx-auto">
-                                
-                                <div class="list-group">
-                                    
-                                        <% users.comptes.forEach(function(compte){ %>
-                                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1"><%= compte.nom %></h5>
-                                                <h5 class="mb-1"><%= compte.solde %> €</h5>
-                                            </div>
-                                            <p class="mb-1"></p>
-                                            <small><%= compte._id %></small>
-                                            </a>
-                                        <% }); %>  
-                                </div>
-                           
+                                    <div class="list-group">
+        
+                                            <% users.comptes.forEach(function(compte){ %>
+                                                <a href="/carte/form/<%= compte._id %>" class="list-group-item list-group-item-action flex-column align-items-start active">
+                                                  <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1"><%= compte.nom %></h5>
+                                                    <h5 class="mb-1"><%= compte.solde %> €</h5>
+                                                  </div>
+                                                  <p class="mb-1"></p>
+                                                  <small><%= compte._id %></small>
+                                                </a>
+                                            <% }); %>  
+                                        </div>
                             </div>
-                        </div>
                     </div>
                 </div>
+            </div>
     </div>
-
 
     <%- include('footer', {user: user}); %>
 

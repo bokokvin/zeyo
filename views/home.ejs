@@ -2,20 +2,97 @@
 <html>
 <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/css/animate.css" rel="stylesheet" type="text/css">
+        <link href="/css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
-    <%- include('menu', {user: user}); %>
+    <%- include('menu', {user: users}); %>
+    <div class="main-wrapper my-5">
+        <!-- Start Feature Area -->
+        <section class="featured-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="single-feature">
+                            <div class="icon">
+                                <i class="fa fa-credit-card-alt i" style="font-size:40px;"></i>
+                            </div>
+                            <div class="desc text-center">
+                                <h6 class="title text-uppercase font-weight-bold">Comptes</h6>
+                                <p>Créez, modifier et consultez vos comptes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-feature">
+                            <div class="icon">
+                                    <i class="fa fa-send i" style="font-size:40px;"></i>
+                            </div>
+                            <div class="desc text-center">
+                                <h6 class="title text-uppercase font-weight-bold">Transactions</h6>
+                                <p>Envoyez et recevez de l'argent à tout moment </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-feature">
+                            <div class="icon">
+                                <i class="fa fa-area-chart i" style="font-size:40px;"></i>
+                            </div>
+                            <div class="desc text-center">
+                                <h6 class="title text-uppercase font-weight-bold">Activités</h6>
+                                <p>Consultez le fil d'avité de vos comptes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-feature">
+                            <div class="icon">
+                                <i class="fa fa-bell i" style="font-size:40px;"></i>                              
+                            </div>
+                            <div class="desc text-center">
+                                <h6 class="title text-uppercase font-weight-bold">Notifications</h6>
+                                <p>Consultez vos nouvelles notifications</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-feature">
+                            <div class="icon">
+                                <i class="fa fa-diamond i" style="font-size:40px;"></i>
+                            </div>
+                            <div class="desc text-center">
+                                <h6 class="title text-uppercase font-weight-bold">Budget </h6>
+                                <p>Gérez vous-même votre budget </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-feature">
+                            <div class="icon">
+                                <i class="fa fa-home i" style="font-size:40px;"></i>
+                            </div>
+                            <div class="desc text-center">
+                                <h6 class="title text-uppercase font-weight-bold">Agences</h6>
+                                <p>Trouvez nos agences pour vous procurer vos recharges</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
 
 
 
 
 
-
-
-    <%- include('footer', {user: user}); %>
+    <%- include('footer', {user: users}); %>
 
 
 
@@ -28,6 +105,21 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/12da9c0825.js"></script>
+<script src="/js/bootstrap-notify.js"></script>
+
+<% if (req.session.message) { %>
+    <script >             
+              var notify = $.notify({
+                  title: '<strong>Félicitations</strong>',
+                  message: '<%= req.session.message %>',
+                  url: '<%= req.session.url %>'
+              },{
+                  type: 'success'
+              });  
+
+      </script>
+<% } %>
 
 </body>
 </html>

@@ -1,90 +1,109 @@
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title>Créez votre compte</title>
-        
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <!------ Include the above in your HEAD tag ---------->
-    </head>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
 
-    <body>
+<body>
+    <%- include('menu', {user: users}); %>
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center text-blue mb-4"></h2>
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+    
+                        <!-- form card login -->
+                        <div class="card rounded-0">
+                            <div class="card-header">
+                                <h3 class="mb-0">INSCRIPTION</h3>
+                            </div>
+                            <div class="card-body">
+                                <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST" action='/login'>
+                                  <div class="form-group">
+                                      <label for="nom">Nom </label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="nom" id="nom" required="true">
+                                      <div class="invalid-feedback">Oops, you missed this one.</div>
+                                  </div> 
+                                  
+                                  <div class="form-group">
+                                      <label for="prenom">Prenom </label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="prenom" id="prenom" required="true">
+                                      <div class="invalid-feedback">Oops, you missed this one.</div>
+                                  </div> 
+                                  
+                                  <div class="form-group">
+                                        <label for="email">E-mail </label>
+                                        <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" required="true">
+                                        <div class="invalid-feedback">Oops, you missed this one.</div>
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="age">Age </label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="age" id="age" required="true">
+                                      <div class="invalid-feedback">Oops, you missed this one.</div>
+                                  </div> 
+
+                                  <div class="form-group">
+                                      <label for="numero">Numero de telephone </label>
+                                      <input type="text" class="form-control form-control-lg rounded-0" name="numero" id="numero" required="true">
+                                      <div class="invalid-feedback">Oops, you missed this one.</div>
+                                  </div>
+
+                                    
+                                    <div class="form-group">
+                                        <label for="mdp">Mot de passe</label>
+                                        <input type="password" class="form-control form-control-lg rounded-0" id="mdp" name="mdp" required="true" autocomplete="">
+                                        <div class="invalid-feedback">Entrez le mot de passe aussi</div>
+                                    </div>
 
 
+                                    <div class="form-group">
+                                        <!-- Erreur -->
+                                        <% if (error) { %>
+                                            <p><%= error %></p>
+                                          <% } %>           
+                                    </div>
 
-
-<form class="form-horizontal" action='/register' method="POST">
-  <fieldset>
-    <div id="legend">
-      <legend class="">INSCRIPTION</legend>
-    </div>
-    <div class="control-group">
-      <!-- Nom -->
-      <label class="control-label"  for="nom">Nom</label>
-      <div class="controls">
-        <input type="text" id="nom" name="nom" placeholder="" class="input-xlarge">
-        <p class="help-block">Please provide your FisrtName</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- Prenom -->
-      <label class="control-label" for="prenom">Prenom</label>
-      <div class="controls">
-        <input type="text" id="prenom" name="prenom" placeholder="" class="input-xlarge">
-        <p class="help-block">Please provide your LastName</p>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <!-- Email -->
-      <label class="control-label" for="email">E-mail</label>
-      <div class="controls">
-        <input type="email" id="email" name="email" placeholder="" class="input-xlarge">
-        <p class="help-block">Please provide your E-mail</p>
-      </div>
-    </div>
-
-    <div class="control-group">
-        <!-- Age -->
-        <label class="control-label" for="age">Age</label>
-        <div class="controls">
-          <input type="text" id="age" name="age" placeholder="" class="input-xlarge">
-          <p class="help-block">Please provide your age</p>
+                                    <button type="submit" class="btn btn-lg btn-primary btn-block" id="btnLogin">Inscrivez-vous</button>
+                                </form>
+                            </div>
+                            <!--/card-block-->
+                        </div>
+                        <!-- /form card login -->
+    
+                    </div>
+    
+    
+                </div>
+                <!--/row-->
+    
+            </div>
+            <!--/col-->
         </div>
-      </div>
-
-      <div class="control-group">
-        <!-- Numero -->
-        <label class="control-label" for="numero">Numero de telephone</label>
-        <div class="controls">
-          <input type="text" id="numero" name="numero" placeholder="" class="input-xlarge">
-          <p class="help-block">Please provide your phone number</p>
-        </div>
-      </div>
-
-
-    <div class="control-group">
-        <!-- Password-->
-        <label class="control-label" for="password">Password</label>
-        <div class="controls">
-          <input type="password" id="mdp" name="mdp" placeholder="" class="input-xlarge">
-          <p class="help-block">Password should be at least 4 characters</p>
-        </div>
-      </div>
- 
-
- 
-    <div class="control-group">
-      <!-- Button -->
-      <div class="controls">
-        <button type="submit" class="btn btn-success">Inscrivez-vous</button>
-      </div>
+        <!--/row-->
     </div>
-  </fieldset>
-</form>
+    <!--/container-->
+
+
+    <%- include('footer', {user: users}); %>
+
+
+
+
+
+
+
+    
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 </html>

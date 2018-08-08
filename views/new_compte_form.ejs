@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet" type="text/css">
-    <link href="/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/css/animate.css" rel="stylesheet" type="text/css">
+        <link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <%- include('menu', {user: users}); %>
+    <%- include('menu', {user: user}); %>
 
     <div class="container py-5">
         <div class="row">
@@ -21,26 +21,20 @@
                         <!-- form card login -->
                         <div class="card rounded-0">
                             <div class="card-header">
-                                <h3 class="mb-0">CONNEXION</h3>
+                                <h3 class="mb-0">Nouveau compte</h3>
                             </div>
                             <div class="card-body">
-                                <form class="form" role="form" autocomplete="on" id="formLogin" novalidate="" method="POST" action='/login'>
+                                <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST" action='/compte/create'>
                                     <div class="form-group">
-                                        <label for="email">E-mail </label>
-                                        <input type="text" class="form-control form-control-lg rounded-0" name="email" id="email" required="true">
+                                        <label for="nom">Nom </label>
+                                        <input type="text" class="form-control form-control-lg rounded-0" name="nom" id="nom" required="">
                                         <div class="invalid-feedback">Oops, you missed this one.</div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mdp">Mot de passe</label>
-                                        <input type="password" class="form-control form-control-lg rounded-0" id="mdp" name="mdp" required="true" autocomplete="">
-                                        <div class="invalid-feedback">Entrez le mot de passe aussi</div>
+                                        <label for="devise">Devise</label>
+                                        <input type="text" class="form-control form-control-lg rounded-0" id="devise" name="devise" required="" autocomplete="">
+                                        <div class="invalid-feedback">Entrez le montant aussi</div>
                                     </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                          <input class="form-check-input" type="checkbox" value="">
-                                          Se souvenir de moi ?
-                                        </label>
-                                      </div>
 
 
                                     <div class="form-group">
@@ -50,7 +44,7 @@
                                           <% } %>           
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary btn-lg float-right" id="btnLogin">Connexion</button>
+                                    <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Créer</button>
                                 </form>
                             </div>
                             <!--/card-block-->
@@ -71,7 +65,7 @@
     <!--/container-->
 
 
-    <%- include('footer', {user: users}); %>
+    <%- include('footer', {user: user}); %>
 
 
 
