@@ -12,8 +12,22 @@ var mongoose    = require('mongoose'),
     config      = require('../../config');
 
 
+
+// Affiche la page de choix du compte à recharger
+exports.cartes = function(req, res) {
+    
+    User
+    .findOne({ _id: req.session.user._id})
+    .populate('comptes')
+    .exec(function (err, User) {
+        res.render('carte.ejs',{users: User});
+    })
+    
+};
+
+
 exports.get_form = function(req, res) {
-    res.render('recharge_carte.ejs', { error: ""});  
+    res.render('carte_form.ejs', { req : req, error: ""});  
   };
 
 
@@ -22,25 +36,27 @@ exports.recharger = function(req, res) {
     .findOne({code: req.body.code}, function (err, carte){
         if (err) return res.status(500).send('Error on the server.');
 
-        if (!carte) return res.render('recharge_carte.ejs', { error: 'Code de recharge erroné'});
+        if (!carte) return res.render('carte_form.ejs', { req : req, error: 'Code de recharge erroné'});
 
-        if (carte.status == 1) return res.render('recharge_carte.ejs', { error: 'Code de recharge déjà utilisé'});
+        if (carte.status == 1) return res.render('carte_form.ejs', { req : req, error: 'Code de recharge déjà utilisé'});
 
-        User.findOne({_id: req.session.user._id})
-            .populate('comptes')
-            .exec(function (err, user){
+        Compte.findOne({_id: req.body.compte_sender})
+            .populate('user')
+            .exec(function (err, compte){
                 if (err) return handleError(err);
 
-                var new_solde = user.comptes[0].solde + parseInt(carte.value);
+                var new_solde = compte.solde + parseInt(carte.value);
 
-                user.comptes[0].update({ solde: new_solde}, {new: true}, function (err, updatedCompte) {
+                compte.update({ solde: new_solde}, {new: true}, function (err, updatedCompte) {
                     if (err) return handleError(err);
 
 
                     carte.update({ status: 1}, {new:true}, function () {}
                     )
                     
-                    res.status(200).send("Votre recharge a été enregistrée");
+                    req.session.message= 'Votre compte vient d\'être rechargé ! Cliquez sur ce message pour le consulter.'
+                    req.session.url= '/comptes'
+                    res.redirect('/home', );
                     });
             
             });
