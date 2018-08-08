@@ -1,10 +1,14 @@
 'use strict';
 
+const url = require('url');
+var moment = require('moment');
+var plotly = require('plotly')("bokokvin", "R8Qq4jDDwQsR1lpzfv9S");
 
 var mongoose = require('mongoose'),
     User = mongoose.model('Users'),
     Compte = mongoose.model('Compte'),
     Rib = mongoose.model('Rib'),
+    Transaction = mongoose.model('Transaction'),
     bcrypt = require('bcryptjs'),
     jwt = require('jsonwebtoken'),
     config = require('../../config');
@@ -12,7 +16,7 @@ var mongoose = require('mongoose'),
 
 // Affiche le formulaire d'inscription
 exports.register_form = function(req, res) {
-      res.render('inscription.ejs');  
+      res.render('inscription.ejs', { error: "", req: req, users:'' } );  
 };
 
 // Affiche le formulaire d'inscription pour un pro
@@ -22,25 +26,31 @@ exports.register_form_pro = function(req, res) {
 
 // Affiche le formulaire de connexion
 exports.login_form = function(req, res) {
-  res.render('connexion.ejs', { error: ""});  
+  res.render('connexion.ejs', { error: "", req: req, users:'' });  
 };
 
 // Affiche la page d'accueil en lui passant les données de l'utilisateur courant
 exports.home = function(req, res) { 
 
-  User
-  .findOne({ _id: req.session.user._id})
-  .populate('comptes')
-  .exec(function (err, User) {
-      res.render('home.ejs',{users: User});
-  })
-        
+  if (req.session.user)
+  {
+    User
+    .findOne({ _id: req.session.user._id})
+    .populate('comptes')
+    .exec(function (err, User) {
+      res.render('home.ejs',{users: User, req: req });
+    })
+      
+  }
+  else {
+    res.render('home.ejs',{ req: req, users:'' });
+  }
 };
 
 // Supprime les données de session, déconnecte l'utilisateur et le redirige vers la page de connexion
 exports.logout = function(req, res) {
   req.session.reset();
-  res.redirect('/login');
+  res.redirect('/home');
 };
 
 // Verifie que l'utilisateur est connecté sinon le redirige vers la page de connexion
@@ -51,6 +61,45 @@ exports.requireLogin = function(req, res, next) {
     next();
   }
 };
+
+// Affiche les transactions d'un utilisateur
+exports.transaction_all_by_user = function(req, res){
+
+  Transaction
+  .find({ $or:[ { sender : req.session.user._id} ,{ receiver : req.session.user._id} ]})
+  .populate('receiver')
+  .exec(function (err, transaction) {
+      if (err) return handleError(err);
+
+      var date = [];
+      transaction.forEach(function(transac) {  
+        date.push(transac.date)
+      });
+
+      var montant = [];
+      transaction.forEach(function(transac) {  
+        montant.push(transac.montant)
+      });
+
+
+      var data = [
+        {
+          x: date,
+          y: montant,
+          type: "scatter"
+        }
+      ];
+      var graphOptions = {filename: "date-axes", fileopt: "overwrite"};
+      
+      plotly.plot(data, graphOptions, function (err, msg) {
+          console.log(msg);
+      });
+
+      
+      
+      res.render('transaction_list.ejs', {transaction: transaction, moment: moment})
+  });
+}
 
 
 
