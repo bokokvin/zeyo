@@ -1,6 +1,8 @@
 var express = require('express'),
   app = express(),
   engine = require('ejs-blocks'),
+  helmet = require('helmet'),
+  session = require('express-session'),
   port = process.env.PORT || 3000;
   mongoose = require('mongoose'),
   
@@ -13,6 +15,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   session = require('client-sessions');
 
+
   // mongoose instance connection url connection
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://localhost/PaiementDB'); 
@@ -21,13 +24,14 @@ var express = require('express'),
     app.engine('ejs', require('express-ejs-extend'));
     //app.engine('ejs', engine);
     //app.set('view engine', 'ejs');
+    app.use(helmet());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(express.static(__dirname + '/public'));
     
     app.use(session({
       cookieName: 'session',
-      secret: 'random_string_goes_here',
+      secret: 'ISeeYouSoon',
       duration: 30 * 60 * 1000,
       activeDuration: 5 * 60 * 1000,
     }));
