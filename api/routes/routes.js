@@ -9,8 +9,9 @@ module.exports = function(app) {
 
     // users Routes
     app.route('/register')
-    .get(users.register_form)  // Affiche formulaire d'inscription
+    .get(users.register_form)  // Affiche formulaire d'inscription   
     .post(users.create_a_user); // Crée un utilisateur
+
 
     app.route('/register/pro')
     .get(users.register_form_pro)  // Affiche formulaire d'inscription pour un pro
@@ -32,6 +33,9 @@ module.exports = function(app) {
     .put(users.requireLogin, users.update_a_user) // Modifie un utilisateur
     .delete(users.requireLogin, users.delete_a_user); // Supprime un utilisateur
 
+
+    app.route('/profil')
+    .get(users.profil); // Affiche le profil de l'utilisateur courant
 
 
     
