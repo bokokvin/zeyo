@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="/css/animate.css" rel="stylesheet" type="text/css">
+        <link href="/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <%- include('menu', {user: users}); %>
+
+    <div class="container my-5">
+        <div class="row my-2">
+            <div class="col-lg-8 order-lg-2">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+                    </li>
+                </ul>
+                <div class="tab-content py-4">
+                    <div class="tab-pane active" id="profile">
+                        <h5 class="mb-3">Profil</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><%= users.nom %></h6>
+                                <h6><%= users.prenom %></h6>
+                                <h6><%= users.email %></h6>
+                                <h6><%= users.age %></h6>
+                                <h6><%= users.numero %></h6>
+
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span> Activités récentes</h5>
+                                <table class="table table-sm table-hover table-striped">
+                                    <tbody>                                    
+
+                                        <tr>
+                                            <td>
+                                                <strong> </strong>   <strong> </strong>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--/row-->
+                    </div>
+                  
+                    <div class="tab-pane" id="edit">
+                            <div class="card-body">
+                                    <form class="form" role="form" autocomplete="off"  novalidate="" method="POST" action='/users/<%= users._id %>'>
+                                      <input type="hidden" name="_method" value="PUT" />
+
+                                      <div class="form-group">
+                                          <label for="nom">Nom </label>
+                                          <input type="text" class="form-control form-control-lg rounded-0" name="nom" id="nom" value="<%= users.nom %>" required="true">
+                                          <div class="invalid-feedback">Oops, you missed this one.</div>
+                                      </div> 
+                                      
+                                      <div class="form-group">
+                                          <label for="prenom">Prenom </label>
+                                          <input type="text" class="form-control form-control-lg rounded-0" name="prenom" id="prenom" value="<%= users.prenom %>" required="true">
+                                          <div class="invalid-feedback">Oops, you missed this one.</div>
+                                      </div> 
+                                      
+                                      <div class="form-group">
+                                            <label for="email">E-mail </label>
+                                            <input type="email" class="form-control form-control-lg rounded-0" name="email" id="email" value="<%= users.email %>" required="true">
+                                            <div class="invalid-feedback">Oops, you missed this one.</div>
+                                      </div>
+    
+                                      <div class="form-group">
+                                          <label for="age">Age </label>
+                                          <input type="text" class="form-control form-control-lg rounded-0" name="age" id="age" value="<%= users.age %>" required="true">
+                                          <div class="invalid-feedback">Oops, you missed this one.</div>
+                                      </div> 
+    
+                                      <div class="form-group">
+                                          <label for="numero">Numero de telephone </label>
+                                          <input type="text" class="form-control form-control-lg rounded-0" name="numero" id="numero" value="<%= users.numero %>" required="true">
+                                          <div class="invalid-feedback">Oops, you missed this one.</div>
+                                      </div>
+    
+                                        
+                                        <div class="form-group">
+                                            <label for="mdp">Mot de passe</label>
+                                            <input type="password" class="form-control form-control-lg rounded-0" id="mdp" name="mdp" value="" required="true" autocomplete="">
+                                            <div class="invalid-feedback">Entrez le mot de passe aussi</div>
+                                        </div>
+    
+    
+                                        <div class="form-group">
+                                            <!-- Erreur -->
+                                            <% if (error) { %>
+                                                <p><%= error %></p>
+                                              <% } %>           
+                                        </div>
+    
+                                        <button type="submit" class="btn btn-lg btn-primary btn-block" id="btnLogin">Modifier</button>
+                                    </form>
+                                </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 order-lg-1 text-center">
+                <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+                <h6 class="mt-2">Upload a different photo</h6>
+                <label class="custom-file">
+                    <input type="file" id="file" class="custom-file-input">
+                    <span class="custom-file-control">Choose file</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <%- include('footer', {user: users}); %>
+
+
+
+    
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/12da9c0825.js"></script>
+<script src="/js/bootstrap-notify.js"></script>
+
+
+</body>
+</html>
