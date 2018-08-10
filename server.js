@@ -15,10 +15,10 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   session = require('client-sessions');
 
-
-  // mongoose instance connection url connection
+    //mongoose instance connection url connection
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost/PaiementDB'); 
+    mongoose.connect('mongodb://bokokvin:sylvestre96@ds261521.mlab.com:61521/zeyo'); 
+    //mongoose.connect('mongodb://localhost/PaiementDB'); 
 
 
     app.engine('ejs', require('express-ejs-extend'));
