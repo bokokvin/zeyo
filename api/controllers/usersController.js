@@ -29,6 +29,23 @@ exports.login_form = function(req, res) {
   res.render('connexion.ejs', { error: "", req: req, users:'' });  
 };
 
+// Affiche le profil de l'utilisateur
+exports.profil = function(req, res) {
+   if (req.session.user)
+  {
+    User
+    .findOne({ _id: req.session.user._id})
+    .populate('comptes')
+    .exec(function (err, User) {
+      res.render('profil.ejs',{users: User, req: req, error: '' });
+    })
+      
+  }
+  else {
+    res.render('profil.ejs',{ req: req, users:'', error: '' });
+  }  
+};
+
 // Affiche la page d'accueil en lui passant les données de l'utilisateur courant
 exports.home = function(req, res) { 
 
@@ -192,10 +209,10 @@ exports.log_a_user = function(req, res) {
   User.findOne({ email: req.body.email }, function (err, user) {
     if (err) return res.status(500).send('Error on the server.');
     
-    if (!user) return res.render('connexion.ejs', { error: 'Nom d\'utilisateur ou mot de passe invalide'});
+    if (!user) return res.render('connexion.ejs', { error: 'Nom d\'utilisateur ou mot de passe invalide', users:'', req: req});
     
     var passwordIsValid = bcrypt.compareSync(req.body.mdp, user.mdp);
-    if (!passwordIsValid) return res.render('connexion.ejs', { error: 'Nom d\'utilisateur ou mot de passe invalide'});
+    if (!passwordIsValid) return res.render('connexion.ejs', { error: 'Nom d\'utilisateur ou mot de passe invalide', users:'', req: req});
     
     var token = jwt.sign({ id: user._id }, config.secret, {
       expiresIn: 86400 // expires in 24 hours
