@@ -78,5 +78,8 @@ module.exports = function(app) {
 
     app.route('/carte/form/:compteId')
     .get(users.requireLogin, cartes.get_form); // Affiche formulaire pour recharger son compte
+
+    app.route('/carte/create')
+    .get(cartes.create_carte);
     
 }
