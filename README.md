@@ -7,7 +7,7 @@
 `cd zeyo`
 
 ##### Install Docker
-If it's not already install Docker. You can use https://docs.docker.com/docker-for-windows/install/
+If it's not already installed, then install Docker. You can use https://docs.docker.com/docker-for-windows/install/
 
 ##### Build your docker image
 `docker build -t bokokvin/zeyo .`
