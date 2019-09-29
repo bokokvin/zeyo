@@ -85,6 +85,7 @@ exports.transaction_all_by_user = function(req, res){
   Transaction
   .find({ $or:[ { sender : req.session.user._id} ,{ receiver : req.session.user._id} ]})
   .populate('receiver')
+  .populate('sender')
   .exec(function (err, transaction) {
       if (err) return handleError(err);
 
@@ -217,6 +218,8 @@ exports.log_a_user = function(req, res) {
     var token = jwt.sign({ id: user._id }, config.secret, {
       expiresIn: 86400 // expires in 24 hours
     });
+
+    //res.status(200).send({ auth: true, token: token });
     
     req.session.user = user;
     res.redirect('/home', );
@@ -251,3 +254,4 @@ exports.delete_a_user = function(req, res) {
     res.json({ message: 'User successfully deleted' });
   });
 };
+ 
